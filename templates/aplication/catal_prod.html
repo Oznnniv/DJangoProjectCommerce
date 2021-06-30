@@ -1,0 +1,27 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block body %}
+{% if prod %}
+<div class="card-header">
+	<strong class="card-title">Catálogo</strong>
+</div>
+{% for prod in prod %}
+<div class="card">
+	<div class="card-body">
+		<div class="text-center">
+			<img src="{{ prod.img.url }}" width="500" height="300">
+		</div>
+		<section class="text-center">
+			<strong class="card-title">Nombre:</strong>
+			<div id="name">{{ prod.name }}</div>
+			<strong class="card-title">Precio:</strong>
+			<div>${{ prod.cost }}</div>
+		</section>
+		<a href="{% url 'detalle_prod' prod.id %}" class="btn btn-info">Detalles</a>
+	</div>
+</div>
+{% endfor %}
+{% else %}
+<h3>No existen productos registrados</h3>
+{% endif %}
+{% endblock body %}

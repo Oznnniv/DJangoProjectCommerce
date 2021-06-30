@@ -1,0 +1,48 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block body %}
+<div class="card">
+  <div class="card-header">
+    <strong class="card-title">Detalles del producto</strong>
+  </div>
+  <div class="card-body">
+				<div class="text-center">
+					<img src="{{ prod.img.url }}" width="500" height="300">
+				</div>
+				<section class="text-center">
+						<strong class="card-title">Nombre:</strong>
+						<div id="name">{{ prod.name }}</div>
+						<strong class="card-title">Descripción:</strong>
+						<div>{{ prod.desc }}</div>
+						<strong class="card-title">Precio:</strong>
+						<div>${{ prod.cost }}</div>
+						<strong class="card-title">Cantidad disponible:</strong>
+						<div>{{ prod.stock }}</div>
+						<!--
+						<strong class="card-title">Usuario:</strong>
+						<div>{{ user.id }}</div>
+						-->
+				</section>
+				<form action="{% url 'detalle_prod' prod.id %}" method="POST" enctype="multipart/form-data">
+				{% csrf_token %}
+					<!--<div>
+						<label>Cantidad:</label> <input type="number" name="stock" value="1" min="1" max="999">
+					</div>-->
+          <div class="card-body">
+            <strong class="card-title">Cantidad:</strong>
+            <div>{{ form.quantity }}</div>
+            <select name="producto" id="id_prod" style="display: none">
+              <option value={{prod.id}} selected>{{prod}}</option>
+            </select>
+          </div>
+					<div class="card-body">
+						<button type="submit" href="" class="btn btn-success">Pedir</button>
+						<a href="{% url 'catal_prod' %}" class="btn btn-secondary">Atrás</a>
+					</div>
+				</form>
+			{% if estado %}
+				<h4>Éxito al añadir</h4>
+			{% endif %}
+	</div>
+</div>
+{% endblock body %}

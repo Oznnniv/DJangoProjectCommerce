@@ -1,0 +1,13 @@
+{% extends 'index.html' %}
+{% block body %}
+<form method="POST">
+  {% csrf_token %}
+  <div class="card text-center">
+  	<div class="card-body">
+  		<p><strong>¿Desea eliminar el registro {{ prod.name }}?</strong></p>
+  		<button type="submit" class="btn btn-danger">Confirmar</button>
+  		<a href="{% url 'listar_prod' %}" class="btn btn-secondary">Cancelar</a>
+  	</div>
+  </div>
+</form>
+{% endblock body %}

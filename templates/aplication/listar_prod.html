@@ -1,0 +1,54 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block body %}
+<div>
+  <button class="btn btn-success" type="button" onclick="abrir_modal_creacion('{% url 'crear_prod' %}')">Agregar</button>
+</div><br>
+{% if prod %}
+<div class="card">
+  <div class="card-header">
+    <strong class="card-title">Lista de productos</strong>
+  </div>
+  <div class="table-stats order-table ov-h">
+  	<table class="table">
+    <thead>
+      <tr>
+        <td class="text-center">ID</td>
+        <td class="text-center">Nombre</td>
+        <td class="text-center">Descripción</td>
+        <td class="text-center">Tipos</td>
+        <td class="text-center">Costo</td>
+        <td class="text-center">Cantidad</td>
+        <td class="text-center">Imagen</td>
+        <td class="text-center">Opciones</td>
+      </tr>
+    </thead>
+    <tbody>
+      {% for prod in prod %}
+      <tr>
+        <td class="text-center">{{ prod.id }}</td>
+        <td class="text-center">{{ prod.name }}</td>
+        <td class="text-center">{{ prod.desc }}</td>
+        <td class="text-center">{{ prod.types }}</td>
+        <td class="text-center">${{ prod.cost }}</td>
+        <td class="text-center">{{ prod.stock }}</td>
+        <td class="text-center"><img src="{{ prod.img.url }}"  alt="{{prod.name}}"></td>
+        <td class="text-center">
+        	<button onclick="abrir_modal_edicion('{% url 'editar_prod' prod.id %}')" class="btn btn-primary">Editar</button>
+        	<a href="{% url 'eliminar_prod' prod.id %}" class="btn btn-danger">Eliminar</a>
+          </td>
+        <!--<td>{{ prod.cliente.name }}</td>-->
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  </div>
+</div>
+{% else %}
+<h3>No existen productos registrados</h3>
+{% endif %}
+<div class="modal fade" id="creacion" role="dialog">
+</div>
+<div class="modal fade" id="edicion" role="dialog">
+</div>
+{% endblock body %}

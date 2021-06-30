@@ -1,0 +1,38 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block body %}
+{% if not pedido %}
+<h3>No existen pedidos registrados</h3>
+{% else %}
+<div class="card">
+  <div class="card-header">
+    <strong class="card-title">Listado de pedidos</strong>
+  </div>
+  <div class="table-stats order-table ov-h">
+  	<table class="table">
+    <thead>
+      <tr>
+        <td class="text-center">ID</td>
+        <td class="text-center">Fecha</td>
+        <td class="text-center">Nombre del producto</td>
+        <td class="text-center">ID del producto</td>
+        <td class="text-center">Cantidad</td>
+      </tr>
+    </thead>
+    <tbody>
+      {% for pedido in pedido %}
+      <tr>
+        <td class="text-center">{{ pedido.id }}</td>
+        <td class="text-center">{{ pedido.fecha }}</td>
+        <td class="text-center">{{ pedido.producto.name }}</td>
+        <td class="text-center">{{ pedido.producto.id }}</td>
+        <td class="text-center">{{ pedido.quantity }}</td>
+        <!--<td>{{ prod.cliente.name }}</td>-->
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  </div>
+</div>
+{% endif %}
+{% endblock body %}
